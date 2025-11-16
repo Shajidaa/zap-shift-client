@@ -3,6 +3,7 @@ import { createBrowserRouter } from "react-router";
 
 import MainRootLayout from "../Layout/MainRootLayout/MainRootLayout";
 import Home from "../Pages/Home/Home/Home";
+import Coverage from "../Pages/coverage/Coverage";
 
 const router = createBrowserRouter([
   {
@@ -12,6 +13,10 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Home></Home>,
+      },
+      {
+        path: "/coverage",
+        element: <Coverage></Coverage>,
       },
     ],
   },
