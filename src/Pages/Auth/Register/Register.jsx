@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { AuthContext } from "../../../Context/AuthContext";
 import axios from "axios";
 import { useNavigate } from "react-router";
+import SocialLogin from "../SocialLogin/SocialLogin";
 
 const Register = () => {
   const { createUserFunc, updateUserProfile } = useContext(AuthContext);
@@ -120,6 +121,7 @@ const Register = () => {
           </div>
           <button className="btn btn-neutral mt-4">Register</button>
         </fieldset>
+        <SocialLogin></SocialLogin>
       </form>
     </div>
   );

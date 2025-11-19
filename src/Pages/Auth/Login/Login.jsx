@@ -2,6 +2,7 @@ import React, { use } from "react";
 import { Link } from "react-router";
 import { AuthContext } from "../../../Context/AuthContext";
 import { useForm } from "react-hook-form";
+import SocialLogin from "../SocialLogin/SocialLogin";
 
 const Login = () => {
   const { logInFunc } = use(AuthContext);
@@ -39,7 +40,8 @@ const Login = () => {
             <a className="link link-hover">Forgot password?</a>
           </div>
           <input type="submit" className="btn" />
-
+          <br />
+          <SocialLogin></SocialLogin>
           <Link to={"/register"} className="link link-hover">
             Register
           </Link>

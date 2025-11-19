@@ -2,16 +2,24 @@ import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
   signInWithEmailAndPassword,
+  signInWithPopup,
   signOut,
   updateProfile,
+  GoogleAuthProvider,
 } from "firebase/auth";
 import { AuthContext } from "./AuthContext";
 import auth from "../../firebase.config";
 import { useEffect, useState } from "react";
 
+const googleProvider = new GoogleAuthProvider();
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
+  //social icon
+
+  const googleFunc = () => {
+    return signInWithPopup(auth, googleProvider);
+  };
   //create account
   const createUserFunc = (email, password) => {
     setLoading(true);
@@ -46,6 +54,7 @@ const AuthProvider = ({ children }) => {
     createUserFunc,
     logInFunc,
     logOut,
+    googleFunc,
   };
   return <AuthContext value={authInfo}>{children}</AuthContext>;
 };
