@@ -8,7 +8,6 @@ const Login = () => {
   const { register, handleSubmit } = useForm();
   const handleLoginFunc = (data) => {
     logInFunc(data.email, data.password);
-    console.log(data);
   };
   return (
     <div>
@@ -39,6 +38,7 @@ const Login = () => {
           <div>
             <a className="link link-hover">Forgot password?</a>
           </div>
+          <input type="submit" className="btn" />
 
           <Link to={"/register"} className="link link-hover">
             Register
