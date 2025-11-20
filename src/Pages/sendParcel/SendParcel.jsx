@@ -1,8 +1,20 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useLoaderData } from "react-router";
 
 const SendParcel = () => {
-  const { register, handleSubmit } = useForm();
+  const { register, watch, handleSubmit } = useForm();
+  const serviceCenter = useLoaderData();
+  const regionDuplicate = serviceCenter.map((c) => c.region);
+  const region = [...new Set(regionDuplicate)];
+  const senderRegion = watch("senderRegion");
+  const districtByRegion = (region) => {
+    const regionDistricts = serviceCenter.filter((c) => c.region === region);
+    const district = regionDistricts.map((d) => d.district);
+    return district;
+  };
+  //   console.log(districtByRegion);
+
   const handleParcelSubmit = (data) => {
     console.log(data);
   };
@@ -77,13 +89,34 @@ const SendParcel = () => {
             {/* region */}
             <fieldset className="fieldset">
               <legend className="fieldset-legend">Region </legend>
-              <select defaultValue="Pick a region" className="select">
+              <select
+                {...register("senderRegion", { required: true })}
+                defaultValue="Pick a region"
+                className="select"
+              >
                 <option disabled={true}>Pick a region</option>
-                <option>Chrome</option>
-                <option>FireFox</option>
-                <option>Safari</option>
+                {region.map((r, i) => (
+                  <option key={i} value={r}>
+                    {r}
+                  </option>
+                ))}
               </select>
-              <span className="label">Optional</span>
+            </fieldset>
+            {/* District */}
+            <fieldset className="fieldset">
+              <legend className="fieldset-legend">District </legend>
+              <select
+                {...register("senderDistrict", { required: true })}
+                defaultValue="Pick a District"
+                className="select"
+              >
+                <option disabled={true}>Pick a District</option>
+                {districtByRegion(senderRegion).map((r, i) => (
+                  <option key={i} value={r}>
+                    {r}
+                  </option>
+                ))}
+              </select>
             </fieldset>
             <label className="label"> Address </label>
             <input
@@ -91,13 +124,6 @@ const SendParcel = () => {
               {...register("senderAddress", { required: true })}
               className="input"
               placeholder="Address"
-            />
-            <label className="label">Sender District </label>
-            <input
-              type="text"
-              {...register("senderDistrict", { required: true })}
-              className="input"
-              placeholder="Select your district"
             />
           </fieldset>
 
