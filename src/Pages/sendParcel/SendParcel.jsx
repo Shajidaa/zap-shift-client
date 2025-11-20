@@ -67,6 +67,24 @@ const SendParcel = () => {
               className="input"
               placeholder="Sender Name"
             />
+            <label className="label">Sender Email </label>
+            <input
+              type="email"
+              {...register("senderEmail", { required: true })}
+              className="input"
+              placeholder="Sender Email"
+            />
+            {/* region */}
+            <fieldset className="fieldset">
+              <legend className="fieldset-legend">Region </legend>
+              <select defaultValue="Pick a region" className="select">
+                <option disabled={true}>Pick a region</option>
+                <option>Chrome</option>
+                <option>FireFox</option>
+                <option>Safari</option>
+              </select>
+              <span className="label">Optional</span>
+            </fieldset>
             <label className="label"> Address </label>
             <input
               type="text"
@@ -92,6 +110,13 @@ const SendParcel = () => {
               {...register("receiverName", { required: true })}
               className="input"
               placeholder="Receiver Name"
+            />
+            <label className="label">Receiver Email </label>
+            <input
+              type="email"
+              {...register("receiverEmail", { required: true })}
+              className="input"
+              placeholder="Receiver Email"
             />
             <label className="label"> Address </label>
             <input
