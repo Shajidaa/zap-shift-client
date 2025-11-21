@@ -29,7 +29,7 @@ const Dashboard = () => {
               <path d="M14 10l2 2l-2 2"></path>
             </svg>
           </label>
-          <div className="px-4">Zap Shift </div>
+          <div className="px-4">Zap Shift Dashboard </div>
         </nav>
         {/* Page content here */}
         <Outlet></Outlet>
