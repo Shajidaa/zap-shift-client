@@ -1,22 +1,71 @@
-import React from "react";
-import { useForm } from "react-hook-form";
+import React, { use } from "react";
+import { useForm, useWatch } from "react-hook-form";
 import { useLoaderData } from "react-router";
+import Swal from "sweetalert2";
+import useAxiosSecure from "../../Hooks/Axios/useAxiosSecure";
+import { AuthContext } from "../../Context/AuthContext";
 
 const SendParcel = () => {
-  const { register, watch, handleSubmit } = useForm();
+  const { register, watch, control, handleSubmit } = useForm();
   const serviceCenter = useLoaderData();
+  const axiosSecure = useAxiosSecure();
+  const { user } = use(AuthContext);
   const regionDuplicate = serviceCenter.map((c) => c.region);
   const region = [...new Set(regionDuplicate)];
+
   const senderRegion = watch("senderRegion");
+  const receiverRegion = useWatch({ control, name: "receiverRegion" });
+
   const districtByRegion = (region) => {
     const regionDistricts = serviceCenter.filter((c) => c.region === region);
     const district = regionDistricts.map((d) => d.district);
     return district;
   };
-  //   console.log(districtByRegion);
 
   const handleParcelSubmit = (data) => {
-    console.log(data);
+    // console.log(data);
+    const isDocument = data.parcelType === "document";
+    const isSameDistrict = data.senderDistrict === data.receiverDistrict;
+    const parcelWeight = parseFloat(data.parcelWeight);
+    let cost = 0;
+    if (isDocument) {
+      cost = isSameDistrict ? 60 : 80;
+    } else {
+      if (parcelWeight < 3) {
+        cost = isSameDistrict ? 110 : 150;
+      } else {
+        const minCharge = isSameDistrict ? 110 : 150;
+        const extraWeight = parcelWeight - 3;
+        const extraCharge = isSameDistrict
+          ? extraWeight * 40
+          : extraWeight * 40 + 40;
+        cost = minCharge + extraCharge;
+      }
+    }
+    console.log("cost", cost);
+    Swal.fire({
+      title: "Agree with the Cost ?",
+      text: `You will be charged ${cost}!`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        //send the data to mongodb
+
+        axiosSecure.post("/parcels", data).then((res) => {
+          console.log(res);
+        });
+
+        // Swal.fire({
+        //   title: "Deleted!",
+        //   text: "Your file has been deleted.",
+        //   icon: "success",
+        // });
+      }
+    });
   };
   return (
     <div>
@@ -78,6 +127,7 @@ const SendParcel = () => {
               {...register("senderName", { required: true })}
               className="input"
               placeholder="Sender Name"
+              defaultValue={user?.displayName}
             />
             <label className="label">Sender Email </label>
             <input
@@ -85,6 +135,7 @@ const SendParcel = () => {
               {...register("senderEmail", { required: true })}
               className="input"
               placeholder="Sender Email"
+              defaultChecked={user?.email}
             />
             {/* region */}
             <fieldset className="fieldset">
@@ -144,19 +195,44 @@ const SendParcel = () => {
               className="input"
               placeholder="Receiver Email"
             />
+            {/* region */}
+            <fieldset className="fieldset">
+              <legend className="fieldset-legend">Receiver Region </legend>
+              <select
+                {...register("receiverRegion", { required: true })}
+                defaultValue="Pick a region"
+                className="select"
+              >
+                <option disabled={true}>Pick a region</option>
+                {region.map((r, i) => (
+                  <option key={i} value={r}>
+                    {r}
+                  </option>
+                ))}
+              </select>
+            </fieldset>
+            {/* District */}
+            <fieldset className="fieldset">
+              <legend className="fieldset-legend">Receiver District </legend>
+              <select
+                {...register("receiverDistrict", { required: true })}
+                defaultValue="Pick a District"
+                className="select"
+              >
+                <option disabled={true}>Pick a District</option>
+                {districtByRegion(receiverRegion).map((r, i) => (
+                  <option key={i} value={r}>
+                    {r}
+                  </option>
+                ))}
+              </select>
+            </fieldset>
             <label className="label"> Address </label>
             <input
               type="text"
               {...register("receiverAddress", { required: true })}
               className="input"
               placeholder="Address"
-            />
-            <label className="label">Receiver District </label>
-            <input
-              type="text"
-              {...register("receiverDistrict", { required: true })}
-              className="input"
-              placeholder="Select your district"
             />
           </fieldset>
         </div>

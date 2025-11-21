@@ -19,7 +19,7 @@ const Register = () => {
     // console.log({ data, profileImg });
 
     createUserFunc(data.email, data.password)
-      .then((res) => {
+      .then(() => {
         // store the image and get the photoUrl
         const formData = new FormData();
         formData.append("image", profileImg);
@@ -28,16 +28,18 @@ const Register = () => {
         }`;
         axios.post(image_API_URL, formData).then((res) => {
           console.log("after image upload", res.data);
+
+          //update user profile to firebase
+          const userProfile = {
+            displayName: data.name,
+            photoURL: res.data.data.url,
+          };
+          console.log(userProfile);
+
+          updateUserProfile(userProfile).then(() => {
+            navigate("/");
+          });
         });
-        //update user profile to firebase
-        const userProfile = {
-          displayName: data.name,
-          photoURL: res.photoURL,
-        };
-        updateUserProfile(userProfile).then(() => {
-          navigate("/");
-        });
-        console.log(res.user);
       })
       .catch((err) => console.error(err));
   };
