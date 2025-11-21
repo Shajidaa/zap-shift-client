@@ -135,7 +135,7 @@ const SendParcel = () => {
               {...register("senderEmail", { required: true })}
               className="input"
               placeholder="Sender Email"
-              defaultChecked={user?.email}
+              defaultValue={user?.email}
             />
             {/* region */}
             <fieldset className="fieldset">

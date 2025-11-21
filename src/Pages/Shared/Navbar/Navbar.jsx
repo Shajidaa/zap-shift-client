@@ -5,7 +5,6 @@ import { AuthContext } from "../../../Context/AuthContext";
 
 const Navbar = () => {
   const { user, logOut } = use(AuthContext);
-  console.log(user);
 
   const handleLogOut = () => {
     logOut().then(() => {
@@ -20,7 +19,11 @@ const Navbar = () => {
       <li>
         <NavLink to={"/send-parcels"}>Send Parcel</NavLink>
       </li>
-      {user && <li>{user.email}</li>}
+      {user && (
+        <li>
+          <NavLink to={"/dashboard"}>Dashboard</NavLink>
+        </li>
+      )}
     </>
   );
   return (
