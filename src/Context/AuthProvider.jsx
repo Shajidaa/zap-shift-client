@@ -14,7 +14,7 @@ import { useEffect, useState } from "react";
 const googleProvider = new GoogleAuthProvider();
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   //social icon
 
   const googleFunc = () => {

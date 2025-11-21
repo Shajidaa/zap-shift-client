@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import React, { use } from "react";
+import { use } from "react";
 import { AuthContext } from "../../../Context/AuthContext";
 import useAxiosSecure from "../../../Hooks/Axios/useAxiosSecure";
 import { FaEdit } from "react-icons/fa";
@@ -7,6 +7,7 @@ import { MdDelete } from "react-icons/md";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import Swal from "sweetalert2";
 import { Link } from "react-router";
+
 const MyParcels = () => {
   const { user } = use(AuthContext);
   const axiosSecure = useAxiosSecure();
@@ -18,8 +19,9 @@ const MyParcels = () => {
       return res.data;
     },
   });
+
   const handleParcelDelete = (id) => {
-    console.log(id);
+    // console.log(id);
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -31,7 +33,7 @@ const MyParcels = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axiosSecure.delete(`/parcel/${id}`).then((res) => {
-          console.log(res.data);
+          // console.log(res.data);
           if (res.data.deletedCount) {
             refetch();
             Swal.fire({

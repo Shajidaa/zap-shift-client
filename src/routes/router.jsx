@@ -12,6 +12,8 @@ import PrivateRouter from "./PrivateRoute/PrivateRouter";
 import Dashboard from "../Layout/DashboardLayout/Dashboard";
 import MyParcels from "../Pages/Dashboard/MyParcels/MyParcels";
 import MyPay from "../Pages/Dashboard/MyPay/MyPay";
+import PaymentSuccessful from "../Pages/Dashboard/PaymentSuccessful";
+import PaymentCancel from "../Pages/Dashboard/PaymentCancel";
 
 const router = createBrowserRouter([
   {
@@ -64,6 +66,14 @@ const router = createBrowserRouter([
       {
         path: "parcel/:parcelId",
         element: <MyPay></MyPay>,
+      },
+      {
+        path: "payment-success",
+        element: <PaymentSuccessful></PaymentSuccessful>,
+      },
+      {
+        path: "payment-cancelled",
+        element: <PaymentCancel></PaymentCancel>,
       },
     ],
   },
