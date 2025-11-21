@@ -43,6 +43,7 @@ const SendParcel = () => {
       }
     }
     console.log("cost", cost);
+    data.cost = cost;
     Swal.fire({
       title: "Agree with the Cost ?",
       text: `You will be charged ${cost}!`,
@@ -124,7 +125,7 @@ const SendParcel = () => {
             <label className="label">Sender Name </label>
             <input
               type="text"
-              {...register("senderName", { required: true })}
+              {...register("senderName")}
               className="input"
               placeholder="Sender Name"
               defaultValue={user?.displayName}
@@ -132,7 +133,7 @@ const SendParcel = () => {
             <label className="label">Sender Email </label>
             <input
               type="email"
-              {...register("senderEmail", { required: true })}
+              {...register("senderEmail")}
               className="input"
               placeholder="Sender Email"
               defaultValue={user?.email}
