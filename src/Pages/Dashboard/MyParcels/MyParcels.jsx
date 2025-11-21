@@ -6,6 +6,7 @@ import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import Swal from "sweetalert2";
+import { Link } from "react-router";
 const MyParcels = () => {
   const { user } = use(AuthContext);
   const axiosSecure = useAxiosSecure();
@@ -43,6 +44,7 @@ const MyParcels = () => {
       }
     });
   };
+
   return (
     <div>
       this is my parcels:{parcels.length}
@@ -54,7 +56,8 @@ const MyParcels = () => {
               <th>Sl No.</th>
               <th>Name</th>
               <th>Cost</th>
-              <th>Status </th>
+              <th>Payment</th>
+              <th>Delivery Status </th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -65,7 +68,21 @@ const MyParcels = () => {
                 <th>{i + 1}</th>
                 <td>{parcel.parcelName}</td>
                 <td>{parcel.cost}</td>
-                <td>Blue</td>
+                <td>
+                  {parcel.paymentStatus === "paid" ? (
+                    <span className="btn btn-square btn-sm bg-green-600">
+                      Paid
+                    </span>
+                  ) : (
+                    <Link
+                      to={`/dashboard/parcel/${parcel._id}`}
+                      className="btn btn-square btn-sm"
+                    >
+                      Pay
+                    </Link>
+                  )}
+                </td>
+                <td>{parcel.deliveryStatus}</td>
                 <td>
                   <button className="btn btn-square">
                     <FaMagnifyingGlass />
