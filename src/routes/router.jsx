@@ -1,4 +1,3 @@
-import React from "react";
 import { createBrowserRouter } from "react-router";
 
 import MainRootLayout from "../Layout/MainRootLayout/MainRootLayout";
@@ -14,6 +13,7 @@ import MyParcels from "../Pages/Dashboard/MyParcels/MyParcels";
 import MyPay from "../Pages/Dashboard/MyPay/MyPay";
 import PaymentSuccessful from "../Pages/Dashboard/PaymentSuccessful";
 import PaymentCancel from "../Pages/Dashboard/PaymentCancel";
+import PaymentHistory from "../Pages/Dashboard/PaymentHistroy/PaymentHistory";
 
 const router = createBrowserRouter([
   {
@@ -66,6 +66,10 @@ const router = createBrowserRouter([
       {
         path: "parcel/:parcelId",
         element: <MyPay></MyPay>,
+      },
+      {
+        path: "payment-history",
+        element: <PaymentHistory></PaymentHistory>,
       },
       {
         path: "payment-success",

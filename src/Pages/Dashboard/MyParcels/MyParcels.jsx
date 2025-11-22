@@ -6,7 +6,6 @@ import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import Swal from "sweetalert2";
-import { Link } from "react-router";
 
 const MyParcels = () => {
   const { user } = use(AuthContext);
