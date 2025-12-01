@@ -14,6 +14,7 @@ import MyPay from "../Pages/Dashboard/MyPay/MyPay";
 import PaymentSuccessful from "../Pages/Dashboard/PaymentSuccessful";
 import PaymentCancel from "../Pages/Dashboard/PaymentCancel";
 import PaymentHistory from "../Pages/Dashboard/PaymentHistroy/PaymentHistory";
+import BeRider from "../Pages/BeRider/BeRider";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,16 @@ const router = createBrowserRouter([
         index: true,
         element: <Home></Home>,
       },
+      {
+        path: "be-rider",
+        element: (
+          <PrivateRouter>
+            <BeRider></BeRider>
+          </PrivateRouter>
+        ),
+        loader: () => fetch(`/serviceCenter.json`).then((res) => res.json()),
+      },
+
       {
         path: "send-parcels",
         element: <SendParcel></SendParcel>,

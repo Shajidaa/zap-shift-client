@@ -19,7 +19,7 @@ const SocialLogin = () => {
         photoURL: result.photoURl,
       };
       axiosSecure.post("/users", userInfo).then((res) => {
-        console.log("user created in the  data base ", res.user);
+        console.log("user created in the  data base ", res.data);
 
         navigate(location.state || "/");
       });
