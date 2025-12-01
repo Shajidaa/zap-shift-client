@@ -2,12 +2,15 @@ import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../../Context/AuthContext";
 import axios from "axios";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import SocialLogin from "../SocialLogin/SocialLogin";
+import useAxiosSecure from "../../../Hooks/Axios/useAxiosSecure";
 
 const Register = () => {
   const { createUserFunc, updateUserProfile } = useContext(AuthContext);
   const navigate = useNavigate();
+  const axiosSecure = useAxiosSecure();
+  const location = useLocation();
   const {
     register,
     handleSubmit,
@@ -27,17 +30,27 @@ const Register = () => {
           import.meta.env.VITE_img_host_key
         }`;
         axios.post(image_API_URL, formData).then((res) => {
-          console.log("after image upload", res.data);
+          //create user in the database
+          console.log("EMAIL:", data.email);
 
+          const userInfo = {
+            email: data.email,
+            displayName: data.name,
+            photoURL: res.data.data.url,
+          };
+          axiosSecure.post("/users", userInfo).then((res) => {
+            if (res.data.insertedId) {
+              console.log("user created in the  data base ");
+            }
+          });
           //update user profile to firebase
           const userProfile = {
             displayName: data.name,
             photoURL: res.data.data.url,
           };
-          console.log(userProfile);
 
           updateUserProfile(userProfile).then(() => {
-            navigate("/");
+            navigate(location.state || "/");
           });
         });
       })

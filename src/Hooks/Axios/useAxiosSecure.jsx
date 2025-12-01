@@ -6,6 +6,7 @@ import { useNavigate } from "react-router";
 const axiosSecure = axios.create({
   baseURL: "http://localhost:3000",
 });
+
 const useAxiosSecure = () => {
   const { user, logOut } = use(AuthContext);
   const navigate = useNavigate();
@@ -31,8 +32,8 @@ const useAxiosSecure = () => {
       }
     );
     return () => {
-      axios.interceptors.request.eject(axiosInterceptor);
-      axios.interceptors.response.eject(resInterceptor);
+      axiosSecure.interceptors.request.eject(axiosInterceptor);
+      axiosSecure.interceptors.response.eject(resInterceptor);
     };
   }, [user, navigate, logOut]);
   return axiosSecure;

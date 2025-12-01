@@ -3,12 +3,24 @@ import { Link } from "react-router";
 import { AuthContext } from "../../../Context/AuthContext";
 import { useForm } from "react-hook-form";
 import SocialLogin from "../SocialLogin/SocialLogin";
+import useAxiosSecure from "../../../Hooks/Axios/useAxiosSecure";
 
 const Login = () => {
   const { logInFunc } = use(AuthContext);
   const { register, handleSubmit } = useForm();
+  const axiosSecure = useAxiosSecure();
   const handleLoginFunc = (data) => {
     logInFunc(data.email, data.password);
+
+    const userInfo = {
+      email: data.email,
+      displayName: data.name,
+    };
+    axiosSecure.post("/users", userInfo).then((res) => {
+      if (res.data.insertedId) {
+        console.log("user created in the  data base ");
+      }
+    });
   };
   return (
     <div>

@@ -1,10 +1,29 @@
 import React, { use } from "react";
 import { AuthContext } from "../../../Context/AuthContext";
+import useAxiosSecure from "../../../Hooks/Axios/useAxiosSecure";
+import { useLocation, useNavigate } from "react-router";
 
 const SocialLogin = () => {
   const { googleFunc } = use(AuthContext);
+  const axiosSecure = useAxiosSecure();
+  const location = useLocation();
+  const navigate = useNavigate();
   const handleGoogleSubmit = () => {
-    googleFunc().then(() => {});
+    googleFunc().then((result) => {
+      console.log(result.user);
+
+      //create user in the database
+      const userInfo = {
+        email: result.user.email,
+        displayName: result.displayName,
+        photoURL: result.photoURl,
+      };
+      axiosSecure.post("/users", userInfo).then((res) => {
+        console.log("user created in the  data base ", res.user);
+
+        navigate(location.state || "/");
+      });
+    });
   };
   return (
     <div>
