@@ -56,7 +56,7 @@ const BeRider = () => {
           <label className="label">Your Email </label>
           <input
             type="email"
-            {...register("riderEmail")}
+            {...register("email")}
             className="input"
             placeholder="Rider Email"
             defaultValue={user?.email}
