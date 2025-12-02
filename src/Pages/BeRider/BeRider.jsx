@@ -16,7 +16,6 @@ const BeRider = () => {
   const region = [...new Set(regionDuplicate)];
 
   const riderRegion = watch("region");
-  //   const receiverRegion = useWatch({ control, name: "receiverRegion" });
 
   const districtByRegion = (region) => {
     const regionDistricts = serviceCenter.filter((c) => c.region === region);

@@ -83,6 +83,16 @@ const Dashboard = () => {
             <li>
               <NavLink
                 className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                data-tip="Users Management"
+                to="/dashboard/users-management"
+              >
+                <FaCreditCard />
+                <span className="is-drawer-close:hidden">Users Management</span>
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                 data-tip="Payment-history"
                 to="/dashboard/payment-history"
               >
