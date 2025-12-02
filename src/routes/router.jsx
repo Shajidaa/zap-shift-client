@@ -18,6 +18,7 @@ import BeRider from "../Pages/BeRider/BeRider";
 import ApproveRiders from "../Pages/Dashboard/ApproveRiders/ApproveRiders";
 import UserManagement from "../Pages/Dashboard/UserManagment/UserManagement";
 import PrivateAdminRoute from "./PrivateRoute/PrivateAdminRoute";
+import AssignRiders from "../Pages/Dashboard/AssignRiders/assignRiders";
 
 const router = createBrowserRouter([
   {
@@ -106,6 +107,15 @@ const router = createBrowserRouter([
         element: (
           <PrivateAdminRoute>
             <ApproveRiders></ApproveRiders>,
+          </PrivateAdminRoute>
+        ),
+      },
+
+      {
+        path: "assign-riders",
+        element: (
+          <PrivateAdminRoute>
+            <AssignRiders></AssignRiders>
           </PrivateAdminRoute>
         ),
       },

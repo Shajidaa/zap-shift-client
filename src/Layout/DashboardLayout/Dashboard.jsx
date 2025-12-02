@@ -121,6 +121,18 @@ const Dashboard = () => {
                     </span>
                   </NavLink>
                 </li>
+                <li>
+                  <NavLink
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Assign-riders"
+                    to="/dashboard/assign-riders"
+                  >
+                    <FaMotorcycle />
+                    <span className="is-drawer-close:hidden">
+                      Assign-riders
+                    </span>
+                  </NavLink>
+                </li>
               </>
             )}
             {/* List item */}
