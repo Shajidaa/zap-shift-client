@@ -1,8 +1,12 @@
 import { CiDeliveryTruck } from "react-icons/ci";
 import { FaCreditCard, FaMotorcycle } from "react-icons/fa";
 import { Link, NavLink, Outlet } from "react-router";
+import useRole from "../../Hooks/useRole";
 
 const Dashboard = () => {
+  const { role } = useRole();
+  console.log(role);
+
   return (
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
@@ -80,16 +84,7 @@ const Dashboard = () => {
                 <span className="is-drawer-close:hidden">My Parcels</span>
               </NavLink>
             </li>
-            <li>
-              <NavLink
-                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                data-tip="Users Management"
-                to="/dashboard/users-management"
-              >
-                <FaCreditCard />
-                <span className="is-drawer-close:hidden">Users Management</span>
-              </NavLink>
-            </li>
+
             <li>
               <NavLink
                 className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
@@ -100,16 +95,34 @@ const Dashboard = () => {
                 <span className="is-drawer-close:hidden">Payment-history</span>
               </NavLink>
             </li>
-            <li>
-              <NavLink
-                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                data-tip="Approve-riders"
-                to="/dashboard/approve-riders"
-              >
-                <FaMotorcycle />
-                <span className="is-drawer-close:hidden">Approve-riders</span>
-              </NavLink>
-            </li>
+            {role.role === "admin" && (
+              <>
+                <li>
+                  <NavLink
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Users Management"
+                    to="/dashboard/users-management"
+                  >
+                    <FaCreditCard />
+                    <span className="is-drawer-close:hidden">
+                      Users Management
+                    </span>
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Approve-riders"
+                    to="/dashboard/approve-riders"
+                  >
+                    <FaMotorcycle />
+                    <span className="is-drawer-close:hidden">
+                      Approve-riders
+                    </span>
+                  </NavLink>
+                </li>
+              </>
+            )}
             {/* List item */}
             <li>
               <button

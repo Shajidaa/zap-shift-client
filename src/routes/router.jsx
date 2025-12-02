@@ -17,6 +17,7 @@ import PaymentHistory from "../Pages/Dashboard/PaymentHistroy/PaymentHistory";
 import BeRider from "../Pages/BeRider/BeRider";
 import ApproveRiders from "../Pages/Dashboard/ApproveRiders/ApproveRiders";
 import UserManagement from "../Pages/Dashboard/UserManagment/UserManagement";
+import PrivateAdminRoute from "./PrivateRoute/PrivateAdminRoute";
 
 const router = createBrowserRouter([
   {
@@ -94,11 +95,19 @@ const router = createBrowserRouter([
       },
       {
         path: "users-management",
-        element: <UserManagement></UserManagement>,
+        element: (
+          <PrivateAdminRoute>
+            <UserManagement></UserManagement>,
+          </PrivateAdminRoute>
+        ),
       },
       {
         path: "approve-riders",
-        element: <ApproveRiders></ApproveRiders>,
+        element: (
+          <PrivateAdminRoute>
+            <ApproveRiders></ApproveRiders>,
+          </PrivateAdminRoute>
+        ),
       },
     ],
   },
